@@ -1,19 +1,23 @@
 export const projectsArray = [];
 
-function createProject (name, color, initialTasks = []) {
-    return {name, color, tasks: [...initialTasks]};
+
+export class Project {
+    constructor (title, color, initialTasks = []) {
+        this.title = title;
+        this.color = color;
+        this.tasks = [...initialTasks];
+    }
+
+    addProject() {
+        projectsArray.push(this);
+    }
 }
 
 
-const pushProjects = (projectObject) => {
-    projectsArray.push(projectObject);
-}
+const project1 = new Project("Project1", "red", [{title: "Rehearse Guitar", description: "Practice the G Dom7 chord", deadline: "2025-02-03", priority: "high", status: "pending"}]);
 
+project1.addProject()
 
-const project1 = createProject("Project1", "red", [{taskName: "Task 1", taskDate: "2025-02-03", priority: "high"}]);
-
-pushProjects(project1)
-
-console.log(projectsArray );
+console.log(projectsArray);
 
 
