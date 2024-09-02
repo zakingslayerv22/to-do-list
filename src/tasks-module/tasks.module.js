@@ -11,8 +11,16 @@ export class Task {
         this.status = status;
     }
 
-    addTask (projectObject) {
+    add (projectObject) {
         projectObject.tasks.push(this)
+    }
+
+    delete (projectObject) {
+        const index = projectObject.tasks.indexOf(this);
+        if (index !== -1) {
+            projectObject.tasks.splice(index, 1);
+            console.log("Deleted");
+        }
     }
 
     updateTitle(newTitle) {
@@ -37,18 +45,16 @@ export class Task {
 }
 
 export function createTask(title, description, deadline, priority, status) {
-    return {title, description, deadline, priority, status}
+    return {title, description, deadline, priority, status};
 }
 
 const task1 = new Task ("Read Book", "Description of Book to be read", "2015-02-01", "high", "completed");
 
 
-export const addTask = (taskObject, projectObject) => {
-    projectObject.tasks.push(taskObject)
-}
 
-task1.addTask(projectsArray[0])
+task1.add(projectsArray[0]);
 
+// task1.delete(projectsArray[0])
 
 console.log(projectsArray)
 
