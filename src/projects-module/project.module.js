@@ -20,6 +20,14 @@ export class Project {
         }
         
     }
+
+    updateTitle(newTitle) {
+        this.title = newTitle;
+    }
+
+    updateColor(newColor) {
+        this.color = newColor;
+    }
 }
 
 
