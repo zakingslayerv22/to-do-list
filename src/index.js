@@ -28,3 +28,35 @@ function renderProjects() {
 
 renderProjects();
 
+function renderTasks(projectObject) {
+    tasksContainer.textContent = "";
+
+    projectObject.tasks.forEach((task, taskIndex) => {
+
+        const editButton = document.createElement("button");
+        editButton.classList.add("task-edit-button");
+        editButton.textContent = "Edit";
+        editButton.dataset.index = taskIndex;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("task-delete-button");
+        deleteButton.textContent = "Delete";
+        deleteButton.dataset.index = taskIndex;
+
+        const taskElement = document.createElement("div");
+
+        for (const property in task) {
+            if (Object.hasOwn(task, property)) {
+                const taskPropertyElement = document.createElement("div");
+                taskPropertyElement.classList.add(`${property}-div`);
+                taskPropertyElement.textContent = task[property];
+                taskElement.appendChild(taskPropertyElement);
+            }
+        }
+
+        tasksContainer.append(editButton, deleteButton, taskElement);
+    });
+}
+
+renderTasks(project2)
+
