@@ -8,5 +8,40 @@
 <body>
     <div class="projects-container"></div>
     <div class="tasks-container"></div>
+
+    <dialog id="tasksDialog">
+        <p class="tasks-dialog-title"></p>
+        <form action="" id="input-form">
+            <input type="text" id="title" placeholder="Title" minlength="5" required>
+            <textarea name="description" id="description" cols="30" rows="2" required></textarea>
+            <input type="date" id="birthday" name="birthday">
+            <!-- <input type="text" id="read" placeholder="Read" value="yes"> -->
+
+            <div class="dropdown">
+                <fieldset>
+                    <legend>Priority<label for="read"></legend>
+                        <select>
+                            <option value="" selected disabled hidden>Select priority</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="low">Low</option>
+                          </select>
+                </fieldset>
+            </div>
+            <div class="radio-input">
+                <fieldset>
+                    <legend>Status<label for="read"></legend>
+                        <label for="completed">Completed</label>
+                        <input type="radio" id="high" name="status" value="completed" checked>
+                        <label for="unread">Pending</label>
+                        <input type="radio" id="pending" name="status" value="pending">
+                </fieldset>
+            </div>
+            <div class="dialog-buttons">
+                <button type="submit" id="confirmBtn">Confirm</button>
+                <button type="button" id="cancelBtn">Cancel</button>
+            </div>
+        </form>
+    </dialog>
 </body>
 </html>

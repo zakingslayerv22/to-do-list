@@ -69,7 +69,7 @@ function handleProjectClicks(event, callback) {
     if (!selectedProject) return;
 
     renderTasks(selectedProject);
-    
+
     callback()
 }
 
@@ -79,10 +79,22 @@ projectsContainer.addEventListener("click", function(event){
     });
 });
 
+window.addEventListener("load", () => {
+    editTasks();
+});
+
 
 function editTasks() {
-    const editTasksButton = document.querySelectorAll(".task-edit-button");
-    console.log(editTasksButton);
+    const editTasksButton = document.querySelectorAll(".edit-task-button");
+    const tasksDialog = document.querySelector("#tasksDialog");
+    const confirmButton = document.querySelector("#confirmBtn");
+    const cancelButton = document.querySelector("#cancelBtn");
+    
+    editTasksButton.forEach((button) => {
+        button.addEventListener(("click"), () => {
+            tasksDialog.showModal()
+        })
+    })
 }
 
 
