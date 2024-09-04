@@ -34,12 +34,12 @@ function renderTasks(projectObject) {
     projectObject.tasks.forEach((task, taskIndex) => {
 
         const editButton = document.createElement("button");
-        editButton.classList.add("task-edit-button");
+        editButton.classList.add("edit-task-button");
         editButton.textContent = "Edit";
         editButton.dataset.index = taskIndex;
 
         const deleteButton = document.createElement("button");
-        deleteButton.classList.add("task-delete-button");
+        deleteButton.classList.add("delete-task-button");
         deleteButton.textContent = "Delete";
         deleteButton.dataset.index = taskIndex;
 
@@ -60,7 +60,7 @@ function renderTasks(projectObject) {
 
 renderTasks(project2);
 
-function handleProjectClicks(event) {
+function handleProjectClicks(event, callback) {
     tasksContainer.textContent = "";
 
     const selectedIndex = event.target.dataset.index;
@@ -69,8 +69,21 @@ function handleProjectClicks(event) {
     if (!selectedProject) return;
 
     renderTasks(selectedProject);
-
+    
+    callback()
 }
 
-projectsContainer.addEventListener("click", handleProjectClicks);
+projectsContainer.addEventListener("click", function(event){
+    handleProjectClicks(event, function() {
+        editTasks()
+    });
+});
+
+
+function editTasks() {
+    const editTasksButton = document.querySelectorAll(".task-edit-button");
+    console.log(editTasksButton);
+}
+
+
 
