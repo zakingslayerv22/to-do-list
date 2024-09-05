@@ -14,31 +14,32 @@
         <form action="" id="input-form">
             <input type="text" id="title" placeholder="Title" minlength="5" required>
             <textarea name="description" id="description" cols="30" rows="2" required></textarea>
-            <input type="date" id="birthday" name="birthday">
+            <input type="date" id="deadline" name="deadline">
             <!-- <input type="text" id="read" placeholder="Read" value="yes"> -->
 
-            <div class="dropdown">
+            <div class="priority-dropdown">
                 <fieldset>
-                    <legend>Priority<label for="read"></legend>
-                        <select>
+                    <legend>Priority<label for="priority"></legend>
+                        <select id="priority">
                             <option value="" selected disabled hidden>Select priority</option>
-                            <option value="High">High</option>
-                            <option value="Medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
                             <option value="low">Low</option>
                           </select>
                 </fieldset>
             </div>
-            <div class="radio-input">
+            <div class="status-dropdown">
                 <fieldset>
-                    <legend>Status<label for="read"></legend>
-                        <label for="completed">Completed</label>
-                        <input type="radio" id="high" name="status" value="completed" checked>
-                        <label for="unread">Pending</label>
-                        <input type="radio" id="pending" name="status" value="pending">
+                    <legend>Status<label for="status"></legend>
+                        <select id="status">
+                            <option value="" selected disabled hidden>Select status</option>
+                            <option value="completed">Completed</option>
+                            <option value="pending">Pending</option>
+                          </select>
                 </fieldset>
             </div>
             <div class="dialog-buttons">
-                <button type="submit" id="confirmBtn">Confirm</button>
+                <button type="button" id="confirmBtn">Confirm</button>
                 <button type="button" id="cancelBtn">Cancel</button>
             </div>
         </form>

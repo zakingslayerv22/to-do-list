@@ -4,12 +4,18 @@ import { projectsArray, Project } from "./projects-module/project.module";
 import { Task } from "./tasks-module/tasks.module";
 
 
-const project2 = new Project("Project2", "green", [{title: "Learn baking", description: "Learn how to bake bread and biscuits", deadline: "2025-02-09", priority: "medium", status: "completed"}]);
+const project2 = new Project("Project Two", "green", []);
+
 const readBook = new Task ("Read Alice in Wonderland", "Complete the target of 20 pages", "2015-02-01", "high", "completed");
+const learnBaking = new Task("Learn baking", "Learn how to bake bread and biscuits", "2025-02-09", "medium", "completed")
+
+const workOut = new Task ("Sit ups", "Do 10 sit-ups and 10 push ups", "2023-02-01", "high", "pending");
 
 
 project2.add();
 readBook.add(projectsArray[0]);
+learnBaking.add(projectsArray[0]);
+workOut.add(projectsArray[1])
 
 const projectsContainer = document.querySelector(".projects-container");
 const tasksContainer = document.querySelector(".tasks-container");
@@ -31,17 +37,23 @@ renderProjects();
 function renderTasks(projectObject) {
     tasksContainer.textContent = "";
 
+    const projectIndex = projectsArray.indexOf(projectObject)
+
     projectObject.tasks.forEach((task, taskIndex) => {
 
         const editButton = document.createElement("button");
         editButton.classList.add("edit-task-button");
         editButton.textContent = "Edit";
-        editButton.dataset.index = taskIndex;
+        editButton.dataset.project = projectIndex;
+        editButton.dataset.task = taskIndex;
+        
 
         const deleteButton = document.createElement("button");
         deleteButton.classList.add("delete-task-button");
         deleteButton.textContent = "Delete";
-        deleteButton.dataset.index = taskIndex;
+        deleteButton.dataset.project = projectIndex;
+        deleteButton.dataset.task = taskIndex;
+        
 
         const taskElement = document.createElement("div");
 

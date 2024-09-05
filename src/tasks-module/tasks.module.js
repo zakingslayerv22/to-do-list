@@ -48,11 +48,11 @@ export function createTask(title, description, deadline, priority, status) {
     return {title, description, deadline, priority, status};
 }
 
-const task1 = new Task ("Read Book", "Description of Book to be read", "2015-02-01", "high", "completed");
+const beginThesis = new Task ("Begin thesis", "Make further research on thesis topic", "2015-02-01", "high", "completed");
 
 
 
-task1.add(projectsArray[0]);
+beginThesis.add(projectsArray[0]);
 
 // task1.delete(projectsArray[0])
 

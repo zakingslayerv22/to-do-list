@@ -31,7 +31,7 @@ export class Project {
 }
 
 
-const project1 = new Project("Project1", "red", [{title: "Rehearse Guitar", description: "Practice the G Dom7 chord", deadline: "2025-02-03", priority: "high", status: "pending"}]);
+const project1 = new Project("Project One", "red", []);
 
 project1.add()
 
