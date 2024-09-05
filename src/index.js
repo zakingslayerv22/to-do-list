@@ -24,7 +24,7 @@ function renderProjects() {
     projectsArray.forEach((project, projectIndex) => {
         const projectElement = document.createElement("div");
         projectElement.textContent = `${project.title} (${project.tasks.length})`;
-        projectElement.classList.add(`${project.title}-div`);
+        projectElement.classList.add("project-div");
         projectElement.dataset.index = projectIndex;
 
         projectsContainer.appendChild(projectElement);
@@ -95,19 +95,47 @@ window.addEventListener("load", () => {
     editTasks();
 });
 
+//for the tasks dialog
+
+const tasksDialog = document.querySelector("#tasksDialog");
+const confirmButton = document.querySelector("#confirmBtn");
+const cancelButton = document.querySelector("#cancelBtn");
+
+const titleField = document.querySelector("#title");
+const descriptionField = document.querySelector("#description");
+const deadlineField = document.querySelector("#deadline");
+const priorityField = document.querySelector("#priority");
+const statusField = document.querySelector('#status');
 
 function editTasks() {
     const editTasksButton = document.querySelectorAll(".edit-task-button");
-    const tasksDialog = document.querySelector("#tasksDialog");
-    const confirmButton = document.querySelector("#confirmBtn");
-    const cancelButton = document.querySelector("#cancelBtn");
+
     
     editTasksButton.forEach((button) => {
-        button.addEventListener(("click"), () => {
-            tasksDialog.showModal()
-        })
-    })
+
+        button.addEventListener(("click"), (event) => {
+            tasksDialog.showModal();
+
+            const projectIndex = event.target.getAttribute("data-project");
+            const taskIndex = event.target.getAttribute("data-task");
+
+            confirmButton.dataset.project = projectIndex;
+            confirmButton.dataset.task = taskIndex;
+            
+            const selectedTask = projectsArray[projectIndex].tasks[taskIndex];
+
+            //populate the modal form
+            titleField.value = selectedTask.title;
+            descriptionField.value = selectedTask.description;
+            deadlineField.value = selectedTask.deadline;
+            priorityField.value = selectedTask.priority;
+            statusField.value = selectedTask.status;
+        });
+
+    });
 }
+
+editTasks()
 
 
 
