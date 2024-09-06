@@ -109,7 +109,7 @@ const statusField = document.querySelector('#status');
 
 function editTasks() {
     const editTasksButton = document.querySelectorAll(".edit-task-button");
-
+    confirmButton.value = "thereIsUserInput";
     
     editTasksButton.forEach((button) => {
 
@@ -133,9 +133,8 @@ function editTasks() {
         });
 
 
-
         tasksDialog.addEventListener("close", () => {
-    
+            if (tasksDialog.returnValue === "thereIsUserInput"){
                 const projectIndex = confirmButton.getAttribute("data-project");
                 const taskIndex = confirmButton.getAttribute("data-task");
 
@@ -150,8 +149,15 @@ function editTasks() {
 
 
                 console.log(editTasksButton)
-            
+            }
+
+           
         });
+
+        confirmButton.addEventListener("click", (event) => {
+            event.preventDefault;
+            tasksDialog.close(confirmButton.value);
+        })
 
 
     });
