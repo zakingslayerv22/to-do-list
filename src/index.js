@@ -132,6 +132,28 @@ function editTasks() {
             statusField.value = selectedTask.status;
         });
 
+
+
+        tasksDialog.addEventListener("close", () => {
+    
+                const projectIndex = confirmButton.getAttribute("data-project");
+                const taskIndex = confirmButton.getAttribute("data-task");
+
+                const selectedTask = projectsArray[projectIndex].tasks[taskIndex];
+                console.log(selectedTask);
+
+                selectedTask.updateTitle(titleField.value);
+                selectedTask.updateDescription(descriptionField.value);
+                selectedTask.updateDeadline(deadlineField.value);
+                selectedTask.updatePriority(priorityField.value);
+                selectedTask.updateStatus(statusField.value);
+
+
+                console.log(editTasksButton)
+            
+        });
+
+
     });
 }
 
