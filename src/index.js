@@ -147,7 +147,8 @@ function editTasks() {
                 selectedTask.updatePriority(priorityField.value);
                 selectedTask.updateStatus(statusField.value);
 
-
+                renderTasks(projectsArray[projectIndex])
+                editTasks()
                 console.log(editTasksButton)
             }
 
