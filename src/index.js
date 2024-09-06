@@ -149,7 +149,6 @@ function editTasks() {
 
                 renderTasks(projectsArray[projectIndex])
                 editTasks()
-                console.log(editTasksButton)
             }
 
            
@@ -158,6 +157,10 @@ function editTasks() {
         confirmButton.addEventListener("click", (event) => {
             event.preventDefault;
             tasksDialog.close(confirmButton.value);
+        });
+
+        cancelButton.addEventListener(("click"), () => {
+            tasksDialog.close();
         })
 
 
