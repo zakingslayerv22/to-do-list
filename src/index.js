@@ -98,8 +98,11 @@ window.addEventListener("load", () => {
 //for the tasks dialog
 
 const tasksDialog = document.querySelector("#tasksDialog");
-const confirmButton = document.querySelector("#confirmBtn");
-const cancelButton = document.querySelector("#cancelBtn");
+
+const editTasksButtonContainer = document.querySelector(".edit-tasks-buttons")
+const newTaskButtonsContainer = document.querySelector(".new-tasks-buttons");
+
+
 
 const titleField = document.querySelector("#title");
 const descriptionField = document.querySelector("#description");
@@ -108,6 +111,8 @@ const priorityField = document.querySelector("#priority");
 const statusField = document.querySelector('#status');
 
 function editTasks() {
+    const confirmButton = document.querySelector("#confirmBtn");
+    const cancelButton = document.querySelector("#cancelBtn");  
     const editTasksButton = document.querySelectorAll(".edit-task-button");
     confirmButton.value = "thereIsUserInput";
     

@@ -8,6 +8,7 @@
 <body>
     <div class="projects-container"></div>
     <div class="tasks-container"></div>
+    <button id="new-task-button" type="button">New Task</button> 
 
     <dialog id="tasksDialog">
         <p class="tasks-dialog-title"></p>
@@ -38,11 +39,28 @@
                           </select>
                 </fieldset>
             </div>
-            <div class="dialog-buttons">
+
+                <div class="projects-dropdown">
+                    <fieldset class="projects-fieldset">
+                        <legend>Projects<label for="projects"></legend>
+                            <select id="projects">
+                                
+                              </select>
+                    </fieldset>
+                </div>
+                
+                </div>
+            <div class="dialog-buttons edit-tasks-buttons">
                 <button type="button" id="confirmBtn">Confirm</button>
                 <button type="button" id="cancelBtn">Cancel</button>
             </div>
+
+            <div class="dialog-buttons new-tasks-buttons">
+                <button type="button" id="newTaskConfirmBtn">Confirm</button>
+                <button type="button" id="newTaskCancelBtn">Cancel</button>
+            </div>
         </form>
     </dialog>
+  
 </body>
 </html>
