@@ -119,6 +119,8 @@ function editTasks() {
     editTasksButton.forEach((button) => {
 
         button.addEventListener(("click"), (event) => {
+            editTasksButtonContainer.style.display = "";
+            newTaskButtonsContainer.style.display = "none";
             tasksDialog.showModal();
 
             const projectIndex = event.target.getAttribute("data-project");
@@ -172,7 +174,59 @@ function editTasks() {
     });
 }
 
-editTasks()
+editTasks();
 
+const newTaskButton = document.querySelector("#new-task-button");
+const newTasksConfirmButton = document.querySelector("#newTaskConfirmBtn");
+const newTasksCancelButton = document.querySelector("#newTaskCancelBtn");
+const projectsField = document.querySelector("#projects");
+
+
+function handleCreateTasks(event) {
+    newTasksConfirmButton.value = "thisIsForNewTasks";
+    
+    newTaskButtonsContainer.style.display = "";
+    editTasksButtonContainer.style.display = "none";
+
+
+    tasksDialog.showModal();
+
+
+    //clear the modal form
+    titleField.value = "";
+    descriptionField.value = "";
+    deadlineField.value = "";
+    priorityField.value = "";
+    statusField.value = "";
+    projectsField.value = "";
+    projectsField.textContent = "";
+
+
+   // const projectsField = document.querySelector("#projects");
+
+   const defaultOption = document.createElement('option');
+//    let selectOption = ""; 
+
+   defaultOption.textContent = "Select project";
+   defaultOption.selected = true;
+   defaultOption.disabled = true;
+   defaultOption.hidden = true;
+
+   projectsField.appendChild(defaultOption);
+
+   projectsArray.forEach((project, projectIndex) => {
+    const selectOption = document.createElement("option");
+    selectOption.textContent = project.title;
+    selectOption.value = projectIndex;
+    
+    projectsField.appendChild(selectOption);
+
+    // console.log(selectOption);
+    
+    });
+
+}
+
+newTaskButton.addEventListener("click", handleCreateTasks);
 
 
