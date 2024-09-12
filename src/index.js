@@ -253,7 +253,17 @@ function setupEventListenersForNewTasks() {
         }
         
     });
+
+    newTasksConfirmButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        tasksDialog.close(newTasksConfirmButton.value);
+    });
     
+    
+    newTasksCancelButton.addEventListener(("click"), () => {
+        tasksDialog.returnValue = "cancel";
+        tasksDialog.close();
+    });
 } 
 
 setupEventListenersForNewTasks()
