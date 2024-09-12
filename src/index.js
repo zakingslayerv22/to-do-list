@@ -111,11 +111,12 @@ const deadlineField = document.querySelector("#deadline");
 const priorityField = document.querySelector("#priority");
 const statusField = document.querySelector('#status');
 
+const editTasksConfirmButton = document.querySelector("#confirmBtn");
+const editTasksCancelButton = document.querySelector("#cancelBtn");  
+
 function editTasks() {
-    const confirmButton = document.querySelector("#confirmBtn");
-    const cancelButton = document.querySelector("#cancelBtn");  
     const editTasksButton = document.querySelectorAll(".edit-task-button");
-    confirmButton.value = "thereIsUserInput";
+    editTasksConfirmButton.value = "thereIsUserInput";
     
     editTasksButton.forEach((button) => {
 
@@ -127,8 +128,8 @@ function editTasks() {
             const projectIndex = event.target.getAttribute("data-project");
             const taskIndex = event.target.getAttribute("data-task");
 
-            confirmButton.dataset.project = projectIndex;
-            confirmButton.dataset.task = taskIndex;
+            editTasksConfirmButton.dataset.project = projectIndex;
+            editTasksConfirmButton.dataset.task = taskIndex;
             
             const selectedTask = projectsArray[projectIndex].tasks[taskIndex];
 
@@ -143,8 +144,8 @@ function editTasks() {
 
         tasksDialog.addEventListener("close", () => {
             if (tasksDialog.returnValue === "thereIsUserInput"){
-                const projectIndex = confirmButton.getAttribute("data-project");
-                const taskIndex = confirmButton.getAttribute("data-task");
+                const projectIndex = editTasksConfirmButton.getAttribute("data-project");
+                const taskIndex = editTasksConfirmButton.getAttribute("data-task");
 
                 const selectedTask = projectsArray[projectIndex].tasks[taskIndex];
                 console.log(selectedTask);
@@ -162,12 +163,13 @@ function editTasks() {
            
         });
 
-        confirmButton.addEventListener("click", (event) => {
+        editTasksConfirmButton.addEventListener("click", (event) => {
             event.preventDefault;
-            tasksDialog.close(confirmButton.value);
+            tasksDialog.close(editTasksConfirmButton.value);
         });
 
-        cancelButton.addEventListener(("click"), () => {
+        editTasksCancelButton.addEventListener(("click"), () => {
+            tasksDialog.returnValue = "cancel"
             tasksDialog.close();
         })
 
