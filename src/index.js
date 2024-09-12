@@ -141,41 +141,44 @@ function editTasks() {
             statusField.value = selectedTask.status;
         });
 
-
-        tasksDialog.addEventListener("close", () => {
-            if (tasksDialog.returnValue === "thereIsUserInput"){
-                const projectIndex = editTasksConfirmButton.getAttribute("data-project");
-                const taskIndex = editTasksConfirmButton.getAttribute("data-task");
-
-                const selectedTask = projectsArray[projectIndex].tasks[taskIndex];
-                console.log(selectedTask);
-
-                selectedTask.updateTitle(titleField.value);
-                selectedTask.updateDescription(descriptionField.value);
-                selectedTask.updateDeadline(deadlineField.value);
-                selectedTask.updatePriority(priorityField.value);
-                selectedTask.updateStatus(statusField.value);
-
-                renderTasks(projectsArray[projectIndex])
-                editTasks()
-            }
-
-           
-        });
-
-        editTasksConfirmButton.addEventListener("click", (event) => {
-            event.preventDefault;
-            tasksDialog.close(editTasksConfirmButton.value);
-        });
-
-        editTasksCancelButton.addEventListener(("click"), () => {
-            tasksDialog.returnValue = "cancel"
-            tasksDialog.close();
-        })
-
-
     });
 }
+
+function setupEventListenersForEditTasks () {
+    tasksDialog.addEventListener("close", () => {
+        if (tasksDialog.returnValue === "thereIsUserInput"){
+            const projectIndex = editTasksConfirmButton.getAttribute("data-project");
+            const taskIndex = editTasksConfirmButton.getAttribute("data-task");
+
+            const selectedTask = projectsArray[projectIndex].tasks[taskIndex];
+            console.log(selectedTask);
+
+            selectedTask.updateTitle(titleField.value);
+            selectedTask.updateDescription(descriptionField.value);
+            selectedTask.updateDeadline(deadlineField.value);
+            selectedTask.updatePriority(priorityField.value);
+            selectedTask.updateStatus(statusField.value);
+
+            renderTasks(projectsArray[projectIndex])
+            editTasks()
+        }
+
+       
+    });
+
+    editTasksConfirmButton.addEventListener("click", (event) => {
+        event.preventDefault;
+        tasksDialog.close(editTasksConfirmButton.value);
+    });
+
+    editTasksCancelButton.addEventListener(("click"), () => {
+        tasksDialog.returnValue = "cancel"
+        tasksDialog.close();
+    })
+
+}
+
+setupEventListenersForEditTasks()
 
 editTasks();
 
