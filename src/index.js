@@ -21,7 +21,8 @@ const projectsContainer = document.querySelector(".projects-container");
 const tasksContainer = document.querySelector(".tasks-container");
 
 function renderProjects() {
-    projectsArray.forEach((project, projectIndex) => {
+        projectsContainer.textContent = ""
+        projectsArray.forEach((project, projectIndex) => {
         const projectElement = document.createElement("div");
         projectElement.textContent = `${project.title} (${project.tasks.length})`;
         projectElement.classList.add("project-div");
@@ -226,6 +227,36 @@ function handleCreateTasks(event) {
     });
 
 }
+
+
+function setupEventListenersForNewTasks() {
+    tasksDialog.addEventListener("close", () => {
+        if (tasksDialog.returnValue === "thisIsForNewTasks") {
+            const newTask = new Task (
+                titleField.value, 
+                descriptionField.value, 
+                deadlineField.value, 
+                priorityField.value, 
+                statusField.value);
+
+            console.log(projectsField.value);
+    
+            projectsArray[projectsField.value].tasks.unshift(newTask);
+    
+            console.log(projectsArray);
+            renderProjects();
+            renderTasks(projectsArray[projectsField.value]);
+            editTasks()
+    
+            // tasksDialog.removeEventListener("close", closeTaskDialog);
+        
+        }
+        
+    });
+    
+} 
+
+setupEventListenersForNewTasks()
 
 newTaskButton.addEventListener("click", handleCreateTasks);
 
