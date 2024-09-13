@@ -42,6 +42,12 @@ export class Task {
     updateStatus (newStatus) {
         this.status = newStatus;
     }
+
+    updateProject (newProjectObject, previousProjectObject) {
+        const index = previousProjectObject.tasks.indexOf(this);
+        newProjectObject.tasks.unshift(previousProjectObject.tasks[index]);
+        this.delete(previousProjectObject);
+    }
 }
 
 export function createTask(title, description, deadline, priority, status) {
