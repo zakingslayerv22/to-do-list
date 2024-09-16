@@ -43,16 +43,13 @@ export class Task {
         this.status = newStatus;
     }
 
-    updateProject (newProjectObject, previousProjectObject) {
+    updateProject (previousProjectObject, newProjectObject, ) {
         const index = previousProjectObject.tasks.indexOf(this);
         newProjectObject.tasks.unshift(previousProjectObject.tasks[index]);
         this.delete(previousProjectObject);
     }
 }
 
-export function createTask(title, description, deadline, priority, status) {
-    return {title, description, deadline, priority, status};
-}
 
 const beginThesis = new Task ("Begin thesis", "Make further research on thesis topic", "2015-02-01", "high", "completed");
 
