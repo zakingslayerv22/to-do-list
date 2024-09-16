@@ -133,8 +133,9 @@ function createSelectOptions() {
     
        projectsField.appendChild(defaultOption);
 
-    let selectOption = ""
-    projectsArray.forEach((project, projectIndex) => {
+        let selectOption = "";
+
+        projectsArray.forEach((project, projectIndex) => {
         selectOption = document.createElement("option");
         selectOption.textContent = project.title;
         selectOption.value = projectIndex;
@@ -147,6 +148,8 @@ function createSelectOptions() {
 
     return {selectOption}
 }
+
+console.log(createSelectOptions());
 
 function editTasks() {
     const editTasksButton = document.querySelectorAll(".edit-task-button");
@@ -167,16 +170,31 @@ function editTasks() {
             
             const selectedTask = projectsArray[projectIndex].tasks[taskIndex];
 
+            createSelectOptions();
             //populate the modal form
             titleField.value = selectedTask.title;
             descriptionField.value = selectedTask.description;
             deadlineField.value = selectedTask.deadline;
             priorityField.value = selectedTask.priority;
             statusField.value = selectedTask.status;
+            projectsField.value = projectIndex;
+
+            console.log(projectIndex)
+            console.log(projectsField.value)
+           
+        //    const optionsNodeList = document.querySelectorAll("option")
+
+        //     console.log (optionsNodeList);
+
+        //    optionsNodeList.forEach(option => {
+        //     console.log(option)
+        //    })
         });
 
     });
 }
+
+
 
 function setupEventListenersForEditTasks () {
     tasksDialog.addEventListener("close", () => {
