@@ -12,10 +12,15 @@ const learnBaking = new Task("Learn baking", "Learn how to bake bread and biscui
 const workOut = new Task ("Sit ups", "Do 10 sit-ups and 10 push ups", "2023-02-01", "high", "pending");
 
 
+
 project2.add();
 readBook.add(projectsArray[0]);
 learnBaking.add(projectsArray[0]);
 workOut.add(projectsArray[1])
+
+readBook.updateProject(projectsArray[1], projectsArray[0])
+
+// readBook.delete(projectsArray[0])
 
 const projectsContainer = document.querySelector(".projects-container");
 const tasksContainer = document.querySelector(".tasks-container");
@@ -110,9 +115,38 @@ const descriptionField = document.querySelector("#description");
 const deadlineField = document.querySelector("#deadline");
 const priorityField = document.querySelector("#priority");
 const statusField = document.querySelector('#status');
+const projectsField = document.querySelector("#projects");
 
 const editTasksConfirmButton = document.querySelector("#confirmBtn");
 const editTasksCancelButton = document.querySelector("#cancelBtn");  
+
+function createSelectOptions() {
+    projectsField.textContent = "";
+
+    const defaultOption = document.createElement('option');
+    //    let selectOption = ""; 
+    
+       defaultOption.textContent = "Select project";
+       defaultOption.selected = true;
+       defaultOption.disabled = true;
+       defaultOption.hidden = true;
+    
+       projectsField.appendChild(defaultOption);
+
+    let selectOption = ""
+    projectsArray.forEach((project, projectIndex) => {
+        selectOption = document.createElement("option");
+        selectOption.textContent = project.title;
+        selectOption.value = projectIndex;
+        
+        projectsField.appendChild(selectOption);
+    
+        // console.log(selectOption);
+        
+        });
+
+    return {selectOption}
+}
 
 function editTasks() {
     const editTasksButton = document.querySelectorAll(".edit-task-button");
@@ -185,7 +219,7 @@ editTasks();
 const newTaskButton = document.querySelector("#new-task-button");
 const newTasksConfirmButton = document.querySelector("#newTaskConfirmBtn");
 const newTasksCancelButton = document.querySelector("#newTaskCancelBtn");
-const projectsField = document.querySelector("#projects");
+
 
 
 function handleCreateTasks(event) {
@@ -220,18 +254,11 @@ function handleCreateTasks(event) {
 
    projectsField.appendChild(defaultOption);
 
-   projectsArray.forEach((project, projectIndex) => {
-    const selectOption = document.createElement("option");
-    selectOption.textContent = project.title;
-    selectOption.value = projectIndex;
-    
-    projectsField.appendChild(selectOption);
+    createSelectOptions()
 
-    // console.log(selectOption);
-    
-    });
 
 }
+
 
 
 function setupEventListenersForNewTasks() {
