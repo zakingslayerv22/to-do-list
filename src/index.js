@@ -18,7 +18,7 @@ readBook.add(projectsArray[0]);
 learnBaking.add(projectsArray[0]);
 workOut.add(projectsArray[1])
 
-readBook.updateProject(projectsArray[1], projectsArray[0])
+readBook.updateProject(projectsArray[0], projectsArray[1])
 
 // readBook.delete(projectsArray[0])
 
@@ -43,21 +43,21 @@ renderProjects();
 function renderTasks(projectObject) {
     tasksContainer.textContent = "";
 
-    const projectIndex = projectsArray.indexOf(projectObject)
+    const oldProjectIndex = projectsArray.indexOf(projectObject)
 
     projectObject.tasks.forEach((task, taskIndex) => {
 
         const editButton = document.createElement("button");
         editButton.classList.add("edit-task-button");
         editButton.textContent = "Edit";
-        editButton.dataset.project = projectIndex;
+        editButton.dataset.oldProject = oldProjectIndex;
         editButton.dataset.task = taskIndex;
         
 
         const deleteButton = document.createElement("button");
         deleteButton.classList.add("delete-task-button");
         deleteButton.textContent = "Delete";
-        deleteButton.dataset.project = projectIndex;
+        deleteButton.dataset.project = oldProjectIndex;
         deleteButton.dataset.task = taskIndex;
         
 
@@ -162,13 +162,13 @@ function editTasks() {
             newTaskButtonsContainer.style.display = "none";
             tasksDialog.showModal();
 
-            const projectIndex = event.target.getAttribute("data-project");
+            const oldProjectIndex = event.target.getAttribute("data-old-project");
             const taskIndex = event.target.getAttribute("data-task");
 
-            editTasksConfirmButton.dataset.project = projectIndex;
+            editTasksConfirmButton.dataset.project = oldProjectIndex;
             editTasksConfirmButton.dataset.task = taskIndex;
             
-            const selectedTask = projectsArray[projectIndex].tasks[taskIndex];
+            const selectedTask = projectsArray[oldProjectIndex].tasks[taskIndex];
 
             createSelectOptions();
             //populate the modal form
@@ -177,18 +177,13 @@ function editTasks() {
             deadlineField.value = selectedTask.deadline;
             priorityField.value = selectedTask.priority;
             statusField.value = selectedTask.status;
-            projectsField.value = projectIndex;
+            projectsField.value = oldProjectIndex;
 
-            console.log(projectIndex)
-            console.log(projectsField.value)
-           
-        //    const optionsNodeList = document.querySelectorAll("option")
+            projectsField.addEventListener("change", () => {
+                editTasksConfirmButton.dataset.newProject = projectsField.value;
 
-        //     console.log (optionsNodeList);
+            })
 
-        //    optionsNodeList.forEach(option => {
-        //     console.log(option)
-        //    })
         });
 
     });
@@ -199,10 +194,11 @@ function editTasks() {
 function setupEventListenersForEditTasks () {
     tasksDialog.addEventListener("close", () => {
         if (tasksDialog.returnValue === "thereIsUserInput"){
-            const projectIndex = editTasksConfirmButton.getAttribute("data-project");
+            const oldProjectIndex = editTasksConfirmButton.getAttribute("data-project");
             const taskIndex = editTasksConfirmButton.getAttribute("data-task");
+            const newProjectIndex = editTasksConfirmButton.getAttribute("data-new-project");
 
-            const selectedTask = projectsArray[projectIndex].tasks[taskIndex];
+            const selectedTask = projectsArray[oldProjectIndex].tasks[taskIndex];
             console.log(selectedTask);
 
             selectedTask.updateTitle(titleField.value);
@@ -211,7 +207,16 @@ function setupEventListenersForEditTasks () {
             selectedTask.updatePriority(priorityField.value);
             selectedTask.updateStatus(statusField.value);
 
-            renderTasks(projectsArray[projectIndex])
+            if (newProjectIndex) {
+                selectedTask.updateProject(projectsArray[oldProjectIndex], projectsArray[newProjectIndex]);
+                renderTasks(projectsArray[newProjectIndex])
+            } else {
+                renderTasks(projectsArray[oldProjectIndex])
+            }
+            
+            // projectsField.value = "";
+            // editTasksConfirmButton.removeAttribute("data-new-project");
+            renderProjects()
             editTasks()
         }
 
