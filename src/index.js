@@ -28,12 +28,25 @@ const tasksContainer = document.querySelector(".tasks-container");
 function renderProjects() {
         projectsContainer.textContent = ""
         projectsArray.forEach((project, projectIndex) => {
-        const projectElement = document.createElement("div");
-        projectElement.textContent = `${project.title} (${project.tasks.length})`;
-        projectElement.classList.add("project-div");
-        projectElement.dataset.index = projectIndex;
+            
+            const editButton = document.createElement("button");
+            editButton.classList.add("edit-project-button");
+            editButton.textContent = "Edit";
+            editButton.dataset.projectIndex = projectIndex;
+            
 
-        projectsContainer.appendChild(projectElement);
+            const deleteButton = document.createElement("button");
+            deleteButton.classList.add("delete-project-button");
+            deleteButton.textContent = "Delete";
+            deleteButton.dataset.projectIndex = projectIndex;
+
+
+            const projectElement = document.createElement("div");
+            projectElement.textContent = `${project.title} (${project.tasks.length})`;
+            projectElement.classList.add("project-div");
+            projectElement.dataset.index = projectIndex;
+
+            projectsContainer.append(editButton, deleteButton, projectElement);
     });
 }
 
@@ -396,3 +409,9 @@ function setupEventListenersForDeleteTasks() {
 setupEventListenersForDeleteTasks();
 deleteTasks();
 
+
+//Projects
+
+function editProject() {
+
+}
