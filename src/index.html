@@ -69,10 +69,39 @@
                 <button type="button" id="deleteTasksCancelBtn">Cancel</button>
             </div>
 
-            <div class="dialog-buttons new-tasks-buttons">
+            <div class="dialog-buttons delete-projects-buttons">
+                <button type="button" id="deleteProjectsConfirmBtn">Confirm</button>
+                <button type="button" id="newProjectsCancelBtn">Cancel</button>
+            </div>
+    </dialog>
+
+    <dialog id="projectsDialog">
+        <p class="projects-dialog-title"></p>
+        <form action="" id="input-form">
+            <input type="text" id="title" placeholder="Title" minlength="5" required>
+
+            <div class="color-dropdown">
+                <fieldset>
+                    <legend>Color<label for="priority"></legend>
+                        <select id="color">
+                            <option value="" selected disabled hidden>Select color</option>
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="green">Green</option>
+                          </select>
+                </fieldset>
+            </div>
+           
+            <div class="dialog-buttons edit-project-buttons">
+                <button type="button" id="confirmBtn">Confirm</button>
+                <button type="button" id="cancelBtn">Cancel</button>
+            </div>
+
+            <div class="dialog-buttons new-project-buttons">
                 <button type="button" id="newTaskConfirmBtn">Confirm</button>
                 <button type="button" id="newTaskCancelBtn">Cancel</button>
             </div>
+        </form>
     </dialog>
   
 </body>
