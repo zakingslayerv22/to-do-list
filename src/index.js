@@ -214,8 +214,6 @@ function setupEventListenersForEditTasks () {
                 renderTasks(projectsArray[oldProjectIndex])
             }
             
-            // projectsField.value = "";
-            // editTasksConfirmButton.removeAttribute("data-new-project");
             renderProjects()
             editTasks()
         }
@@ -325,4 +323,73 @@ setupEventListenersForNewTasks()
 
 newTaskButton.addEventListener("click", handleCreateTasks);
 
+//delete tasks
+
+const deleteDialog = document.querySelector("#deleteDialog")
+const deleteTasksConfirmButton = document.querySelector("#deleteTasksConfirmBtn");
+const deleteTasksCancelButton = document.querySelector("#deleteTasksCancelBtn");  
+
+
+function deleteTasks() {
+    const dialogTitle = document.querySelector(".delete-dialog-title");
+    const deleteTasksButtons = document.querySelectorAll(".delete-task-button");
+
+    deleteTasksConfirmButton.value = "userWantsToDelete";
+    console.log(deleteTasksButtons);
+
+    deleteTasksButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+            deleteDialog.showModal();
+
+            const projectIndex = event.target.getAttribute("data-project");
+            const taskIndex = event.target.getAttribute("data-task");
+
+            const projectObject = projectsArray[projectIndex]
+            const selectedTask = projectsArray[projectIndex].tasks[taskIndex];
+
+            dialogTitle.textContent = `Delete ${selectedTask.title} task from 
+                                        ${projectObject.title} project? This 
+                                        action cannot be undone.`
+
+
+            deleteTasksConfirmButton.dataset.project = projectIndex;
+            deleteTasksConfirmButton.dataset.task = taskIndex;
+
+        });
+    });
+}
+
+function setupEventListenersForDeleteTasks() {
+    deleteDialog.addEventListener("close", () => {
+        if (deleteDialog.returnValue === "userWantsToDelete"){
+            const projectIndex = deleteTasksConfirmButton.getAttribute("data-project");
+            const taskIndex = deleteTasksConfirmButton.getAttribute("data-task");
+
+            const projectObject = projectsArray[projectIndex]
+            const selectedTask = projectsArray[projectIndex].tasks[taskIndex];
+
+            selectedTask.delete(projectObject);
+
+            renderProjects()
+            renderTasks(projectObject)
+            editTasks()
+            deleteTasks();
+        }
+
+       
+    });
+
+    deleteTasksConfirmButton.addEventListener("click", (event) => {
+        event.preventDefault;
+        deleteDialog.close(deleteTasksConfirmButton.value);
+    });
+
+    deleteTasksCancelButton.addEventListener(("click"), () => {
+        deleteDialog.returnValue = "cancel"
+        deleteDialog.close();
+    })
+}
+
+setupEventListenersForDeleteTasks();
+deleteTasks();
 
