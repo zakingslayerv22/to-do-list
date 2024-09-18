@@ -412,6 +412,41 @@ deleteTasks();
 
 //Projects
 
-function editProject() {
+const projectsDialog = document.querySelector("#projectsDialog")
 
+const projectTitleField = document.querySelector(".project-title");
+const projectColorField = document.querySelector("#color");
+
+const editProjectButtonContainer = document.querySelector(".edit-project-buttons");
+const newProjectButtonsContainer = document.querySelector(".new-project-buttons");
+
+const editProjectsConfirmButton = document.querySelector("#editProjectConfirmBtn");
+const editProjectsCancelButton = document.querySelector("#editProjectCancelBtn");  
+function editProjects() {
+    const editProjectsButton = document.querySelectorAll(".edit-project-button");
+    editTasksConfirmButton.value = "thereIsUserInput";
+    
+    editProjectsButton.forEach((button) => {
+
+        button.addEventListener(("click"), (event) => {
+            editProjectButtonContainer.style.display = "";
+            newProjectButtonsContainer.style.display = "none";
+            
+            projectsDialog.showModal();
+
+            const projectIndex = event.target.getAttribute("data-project-index");
+
+            editProjectsConfirmButton.dataset.projectIndex = projectIndex;
+            
+            const selectedProject = projectsArray[projectIndex]
+
+            //populate the modal form
+            projectTitleField.value = selectedProject.title;
+            projectColorField.value = selectedProject.color;
+
+        });
+
+    });
 }
+
+editProjects();
