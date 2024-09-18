@@ -94,6 +94,7 @@ function handleProjectClicks(event, callback) {
 projectsContainer.addEventListener("click", function(event){
     handleProjectClicks(event, function() {
         editTasks()
+        deleteTasks()
     });
 });
 
@@ -216,6 +217,7 @@ function setupEventListenersForEditTasks () {
             
             renderProjects()
             editTasks()
+            deleteTasks();
         }
 
        
@@ -299,7 +301,8 @@ function setupEventListenersForNewTasks() {
             console.log(projectsArray);
             renderProjects();
             renderTasks(projectsArray[projectsField.value]);
-            editTasks()
+            editTasks();
+            deleteTasks();
     
             // tasksDialog.removeEventListener("close", closeTaskDialog);
         
