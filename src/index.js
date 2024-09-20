@@ -30,6 +30,8 @@ function callHelperFunctions() {
     editTasks();
     deleteTasks();
     editProjects();
+
+    handleProjectClicksAfterCrud()
 }
 
 function renderProjects() {
@@ -111,16 +113,20 @@ function handleProjectClicks(event, callback) {
     callback()
 }
 
-const projectDiv = document.querySelectorAll(".project-div");
+function handleProjectClicksAfterCrud() {
+    const projectDiv = document.querySelectorAll(".project-div");
 
-projectDiv.forEach(project => {
-    project.addEventListener("click", function(event){
-        handleProjectClicks(event, function() {
-            editTasks()
-            deleteTasks()
+    projectDiv.forEach(project => {
+        project.addEventListener("click", function(event){
+            handleProjectClicks(event, function() {
+                editTasks()
+                deleteTasks()
+            });
         });
     });
-});
+}
+handleProjectClicksAfterCrud()
+
 
 window.addEventListener("load", () => {
     editTasks();
