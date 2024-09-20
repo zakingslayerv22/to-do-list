@@ -111,10 +111,14 @@ function handleProjectClicks(event, callback) {
     callback()
 }
 
-projectsContainer.addEventListener("click", function(event){
-    handleProjectClicks(event, function() {
-        editTasks()
-        deleteTasks()
+const projectDiv = document.querySelectorAll(".project-div");
+
+projectDiv.forEach(project => {
+    project.addEventListener("click", function(event){
+        handleProjectClicks(event, function() {
+            editTasks()
+            deleteTasks()
+        });
     });
 });
 
@@ -394,6 +398,7 @@ function setupEventListenersForDeleteTasks() {
             renderTasks(projectObject);
 
             callHelperFunctions();
+            // console.log(projectDiv)
         }
 
        
