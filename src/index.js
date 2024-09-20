@@ -25,6 +25,13 @@ readBook.updateProject(projectsArray[0], projectsArray[1])
 const projectsContainer = document.querySelector(".projects-container");
 const tasksContainer = document.querySelector(".tasks-container");
 
+function callHelperFunctions() {
+    renderProjects();
+    editTasks();
+    deleteTasks();
+    editProjects();
+}
+
 function renderProjects() {
         projectsContainer.textContent = ""
         projectsArray.forEach((project, projectIndex) => {
@@ -228,9 +235,7 @@ function setupEventListenersForEditTasks () {
                 renderTasks(projectsArray[oldProjectIndex])
             }
             
-            renderProjects()
-            editTasks()
-            deleteTasks();
+            callHelperFunctions()
         }
 
         editTasksConfirmButton.removeAttribute("data-new-project");
@@ -313,10 +318,9 @@ function setupEventListenersForNewTasks() {
             projectsArray[projectsField.value].tasks.unshift(newTask);
     
             console.log(projectsArray);
-            renderProjects();
             renderTasks(projectsArray[projectsField.value]);
-            editTasks();
-            deleteTasks();
+
+            callHelperFunctions()
     
             // tasksDialog.removeEventListener("close", closeTaskDialog);
         
@@ -387,10 +391,9 @@ function setupEventListenersForDeleteTasks() {
 
             selectedTask.delete(projectObject);
 
-            renderProjects()
-            renderTasks(projectObject)
-            editTasks()
-            deleteTasks();
+            renderTasks(projectObject);
+
+            callHelperFunctions();
         }
 
        
@@ -462,10 +465,7 @@ function setupEventListenersForEditProjects () {
             selectedProject.updateTitle(projectTitleField.value);
             selectedProject.updateColor(projectColorField.value);
 
-            renderProjects()
-            editTasks()
-            deleteTasks();
-            editProjects()
+            callHelperFunctions();
         }
 
        
