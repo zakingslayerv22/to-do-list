@@ -424,7 +424,7 @@ const editProjectsConfirmButton = document.querySelector("#editProjectConfirmBtn
 const editProjectsCancelButton = document.querySelector("#editProjectCancelBtn");  
 function editProjects() {
     const editProjectsButton = document.querySelectorAll(".edit-project-button");
-    editTasksConfirmButton.value = "thereIsUserInput";
+    editProjectsConfirmButton.value = "thereIsUserInput";
     
     editProjectsButton.forEach((button) => {
 
@@ -448,5 +448,41 @@ function editProjects() {
 
     });
 }
+
+function setupEventListenersForEditProjects () {
+    projectsDialog.addEventListener("close", () => {
+        if (projectsDialog.returnValue === "thereIsUserInput"){
+            const projectIndex = editProjectsConfirmButton.getAttribute("data-project-index");
+            
+            const selectedProject = projectsArray[projectIndex];
+
+            console.log(selectedProject)
+
+            selectedProject.updateTitle(projectTitleField.value);
+            selectedProject.updateColor(projectColorField.value);
+
+            renderProjects()
+            editTasks()
+            deleteTasks();
+            editProjects()
+        }
+
+       
+    });
+
+    editProjectsConfirmButton.addEventListener("click", (event) => {
+        event.preventDefault;
+        projectsDialog.close(editProjectsConfirmButton.value);
+        console.log(projectsArray);
+    });
+
+    editProjectsCancelButton.addEventListener(("click"), () => {
+        projectsDialog.returnValue = "cancel"
+        projectsDialog.close();
+    })
+
+}
+
+setupEventListenersForEditProjects ()
 
 editProjects();
