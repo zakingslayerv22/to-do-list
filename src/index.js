@@ -233,6 +233,7 @@ function setupEventListenersForEditTasks () {
             deleteTasks();
         }
 
+        editTasksConfirmButton.removeAttribute("data-new-project");
        
     });
 
