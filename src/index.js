@@ -432,11 +432,12 @@ const projectsDialog = document.querySelector("#projectsDialog")
 const projectTitleField = document.querySelector(".project-title");
 const projectColorField = document.querySelector("#color");
 
-const editProjectButtonContainer = document.querySelector(".edit-project-buttons");
-const newProjectButtonsContainer = document.querySelector(".new-project-buttons");
+const editProjectsButtonContainer = document.querySelector(".edit-project-buttons");
+const newProjectsButtonsContainer = document.querySelector(".new-project-buttons");
 
 const editProjectsConfirmButton = document.querySelector("#editProjectConfirmBtn");
-const editProjectsCancelButton = document.querySelector("#editProjectCancelBtn");  
+const editProjectsCancelButton = document.querySelector("#editProjectCancelBtn"); 
+
 function editProjects() {
     const editProjectsButton = document.querySelectorAll(".edit-project-button");
     editProjectsConfirmButton.value = "thereIsUserInput";
@@ -444,8 +445,8 @@ function editProjects() {
     editProjectsButton.forEach((button) => {
 
         button.addEventListener(("click"), (event) => {
-            editProjectButtonContainer.style.display = "";
-            newProjectButtonsContainer.style.display = "none";
+            editProjectsButtonContainer.style.display = "";
+            newProjectsButtonsContainer.style.display = "none";
             
             projectsDialog.showModal();
 
@@ -497,4 +498,68 @@ function setupEventListenersForEditProjects () {
 
 setupEventListenersForEditProjects ()
 
-editProjects();
+editProjects()
+
+
+const newProjectButton = document.querySelector("#new-project-button");
+const newProjectsConfirmButton = document.querySelector("#newProjectConfirmBtn");
+const newProjectsCancelButton = document.querySelector("#newProjectCancelBtn");
+
+function handleCreateProjects() {
+    newProjectsConfirmButton.value = "thisIsForNewProjects";
+    
+    newProjectsButtonsContainer.style.display = "";
+    editProjectsButtonContainer.style.display = "none";
+
+
+    projectsDialog.showModal();
+
+    //clear the modal form
+    projectTitleField.value = "";
+    projectColorField.value = "";
+
+   const defaultOption = document.createElement('option');
+
+   defaultOption.textContent = "Select Color";
+   defaultOption.selected = true;
+   defaultOption.disabled = true;
+   defaultOption.hidden = true;
+
+   projectColorField.appendChild(defaultOption);
+
+}
+
+
+function setupEventListenersForNewProjects() {
+    projectsDialog.addEventListener("close", () => {
+        if (projectsDialog.returnValue === "thisIsForNewProjects") {
+            const newProject = new Project (
+                projectTitleField.value, 
+                projectColorField.value 
+            );
+
+            projectsArray.unshift(newProject);
+    
+            renderTasks(projectsArray[0]);
+            // renderTasks(projectsArray[projectsArray.indexOf(newProject)]);
+            callHelperFunctions()
+
+        }
+        
+    });
+
+    newProjectsConfirmButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        projectsDialog.close(newProjectsConfirmButton.value);
+    });
+    
+    
+    newProjectsCancelButton.addEventListener(("click"), () => {
+        projectsDialog.returnValue = "cancel";
+        projectsDialog.close();
+    });
+} 
+
+setupEventListenersForNewProjects()
+
+newProjectButton.addEventListener("click", handleCreateProjects);
