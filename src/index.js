@@ -30,6 +30,7 @@ function callHelperFunctions() {
     editTasks();
     deleteTasks();
     editProjects();
+    deleteProjects();
 
     handleProjectClicksAfterCrud()
 }
@@ -418,7 +419,7 @@ function setupEventListenersForDeleteTasks() {
     deleteTasksCancelButton.addEventListener(("click"), () => {
         deleteDialog.returnValue = "cancel"
         deleteDialog.close();
-    })
+    });
 }
 
 setupEventListenersForDeleteTasks();
@@ -563,3 +564,67 @@ function setupEventListenersForNewProjects() {
 setupEventListenersForNewProjects()
 
 newProjectButton.addEventListener("click", handleCreateProjects);
+
+
+const deleteProjectsConfirmButton = document.querySelector("#deleteProjectsConfirmBtn");
+const deleteProjectsCancelButton = document.querySelector("#deleteProjectsCancelBtn");
+
+function deleteProjects() {
+    const dialogTitle = document.querySelector(".delete-dialog-title");
+    const deleteProjectsButtons = document.querySelectorAll(".delete-project-button");
+
+    deleteProjectsConfirmButton.value = "userWantsToDeleteProject";
+    // console.log(deleteTasksButtons);
+
+    deleteProjectsButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+            deleteDialog.showModal();
+
+            const projectIndex = event.target.getAttribute("data-project-index");
+
+            const projectObject = projectsArray[projectIndex]
+
+            dialogTitle.textContent = `Delete ${projectObject.title} project and all its tasks? This 
+                                        action cannot be undone.`
+
+            deleteProjectsConfirmButton.dataset.projectIndex = projectIndex;
+
+        });
+    });
+}
+
+function setupEventListenersForDeleteProjects() {
+    deleteDialog.addEventListener("close", () => {
+        if (deleteDialog.returnValue === "userWantsToDeleteProject"){
+            const projectIndex = deleteProjectsConfirmButton.getAttribute("data-project-index");
+
+            const projectObject = projectsArray[projectIndex];
+
+            if ((projectsArray.length - projectIndex === 1)) {
+                renderTasks(projectsArray[0]);
+            } else {
+                renderTasks(projectsArray[+projectIndex + 1])
+            } 
+
+            projectObject.delete();
+
+            callHelperFunctions();
+        }
+
+    });
+
+    deleteProjectsConfirmButton.addEventListener("click", (event) => {
+        event.preventDefault;
+        deleteDialog.close(deleteProjectsConfirmButton.value);
+    });
+
+    deleteProjectsCancelButton.addEventListener(("click"), () => {
+        deleteDialog.returnValue = "cancelDelete"
+        deleteDialog.close();
+    });
+}
+
+setupEventListenersForDeleteProjects()
+
+deleteProjects()
+
