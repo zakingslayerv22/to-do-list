@@ -217,8 +217,8 @@ function editTasks() {
     editTasksButton.forEach((button) => {
 
         button.addEventListener(("click"), (event) => {
-            editTasksButtonContainer.style.display = "";
-            newTaskButtonsContainer.style.display = "none";
+            
+            hideOrShowButtonsDiv(newTaskButtonsContainer, editTasksButtonContainer)
             tasksDialog.showModal();
 
             const oldProjectIndex = event.target.getAttribute("data-old-project");
@@ -305,9 +305,7 @@ const newTasksCancelButton = document.querySelector("#newTaskCancelBtn");
 function handleCreateTasks(event) {
     newTasksConfirmButton.value = "thisIsForNewTasks";
     
-    newTaskButtonsContainer.style.display = "";
-    editTasksButtonContainer.style.display = "none";
-
+    hideOrShowButtonsDiv(editTasksButtonContainer, newTaskButtonsContainer);
 
     tasksDialog.showModal();
 
@@ -385,8 +383,8 @@ newTaskButton.addEventListener("click", handleCreateTasks);
 //delete tasks
 
 const deleteDialog = document.querySelector("#deleteDialog");
-const deleteProjectsButtonsDiv = document.querySelector(".delete-projects-buttons");
-const deleteTasksButtonsDiv = document.querySelector(".delete-tasks-buttons");
+const deleteProjectsButtonsContainer = document.querySelector(".delete-projects-buttons");
+const deleteTasksButtonsContainer = document.querySelector(".delete-tasks-buttons");
 
 const deleteTasksConfirmButton = document.querySelector("#deleteTasksConfirmBtn");
 const deleteTasksCancelButton = document.querySelector("#deleteTasksCancelBtn");  
@@ -403,7 +401,7 @@ function deleteTasks() {
         button.addEventListener("click", (event) => {
             deleteDialog.showModal();
 
-            hideOrShowButtonsDiv(deleteProjectsButtonsDiv, deleteTasksButtonsDiv);
+            hideOrShowButtonsDiv(deleteProjectsButtonsContainer, deleteTasksButtonsContainer);
 
             const projectIndex = event.target.getAttribute("data-project");
             const taskIndex = event.target.getAttribute("data-task");
@@ -478,9 +476,9 @@ function editProjects() {
     editProjectsButton.forEach((button) => {
 
         button.addEventListener(("click"), (event) => {
-            editProjectsButtonContainer.style.display = "";
-            newProjectsButtonsContainer.style.display = "none";
-            
+
+            hideOrShowButtonsDiv(newProjectsButtonsContainer, editProjectsButtonContainer);
+
             projectsDialog.showModal();
 
             const projectIndex = event.target.getAttribute("data-project-index");
@@ -541,9 +539,7 @@ const newProjectsCancelButton = document.querySelector("#newProjectCancelBtn");
 function handleCreateProjects() {
     newProjectsConfirmButton.value = "thisIsForNewProjects";
     
-    newProjectsButtonsContainer.style.display = "";
-    editProjectsButtonContainer.style.display = "none";
-
+    hideOrShowButtonsDiv(editProjectsButtonContainer, newProjectsButtonsContainer);
 
     projectsDialog.showModal();
 
@@ -612,7 +608,7 @@ function deleteProjects() {
         button.addEventListener("click", (event) => {
             deleteDialog.showModal();
 
-            hideOrShowButtonsDiv(deleteTasksButtonsDiv, deleteProjectsButtonsDiv);
+            hideOrShowButtonsDiv(deleteTasksButtonsContainer, deleteProjectsButtonsContainer);
 
             const projectIndex = event.target.getAttribute("data-project-index");
 
