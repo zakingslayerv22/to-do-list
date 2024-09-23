@@ -24,6 +24,22 @@ readBook.updateProject(projectsArray[0], projectsArray[1])
 
 const projectsContainer = document.querySelector(".projects-container");
 const tasksContainer = document.querySelector(".tasks-container");
+const newTaskButton = document.querySelector("#new-task-button");
+
+function isProjectArrayEmpty() {
+    return projectsArray.length === 0;
+}
+
+function clearTasksContainer() {
+    if (isProjectArrayEmpty()) {
+        tasksContainer.textContent = "";
+    } 
+}
+
+function handleNewTaskButton() {
+    newTaskButton.disabled = isProjectArrayEmpty() ? true : false;
+}
+
 
 function callHelperFunctions() {
     renderProjects();
@@ -31,6 +47,8 @@ function callHelperFunctions() {
     deleteTasks();
     editProjects();
     deleteProjects();
+    clearTasksContainer();
+    handleNewTaskButton();
 
     handleProjectClicksAfterCrud()
 }
@@ -67,6 +85,10 @@ function renderTasks(projectObject) {
     tasksContainer.textContent = "";
 
     const oldProjectIndex = projectsArray.indexOf(projectObject)
+
+    if (!projectObject.tasks.length) {
+        console.log("No tasks to see here. Start by adding a new task!")
+    }
 
     projectObject.tasks.forEach((task, taskIndex) => {
 
@@ -269,7 +291,7 @@ setupEventListenersForEditTasks()
 
 editTasks();
 
-const newTaskButton = document.querySelector("#new-task-button");
+
 const newTasksConfirmButton = document.querySelector("#newTaskConfirmBtn");
 const newTasksCancelButton = document.querySelector("#newTaskCancelBtn");
 
