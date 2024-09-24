@@ -6,7 +6,7 @@ export class Task {
     constructor (title, description, deadline, priority, status) {
         this.title = title;
         this.description = description;
-        this.deadline = deadline;
+        this.deadline = new Date(deadline);
         this.priority = priority;
         this.status = status;
     }
@@ -32,7 +32,7 @@ export class Task {
     }
 
     updateDeadline (newDeadline) {
-        this.deadline = newDeadline;
+        this.deadline = new Date(newDeadline);
     }
 
     updatePriority (newPriority) {
