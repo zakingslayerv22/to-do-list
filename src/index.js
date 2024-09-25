@@ -6,8 +6,8 @@ import { Task } from "./tasks-module/tasks.module";
 
 const project2 = new Project("Project Two", "green", []);
 
-const readBook = new Task ("Read Alice in Wonderland", "Complete the target of 20 pages", "2015-02-01", "high", "completed");
-const learnBaking = new Task("Learn baking", "Learn how to bake bread and biscuits", "2025-02-09", "medium", "completed")
+const readBook = new Task ("Read Alice in Wonderland", "Complete the target of 20 pages", "2020-05-01", "high", "completed");
+const learnBaking = new Task("Learn baking", "Learn how to bake bread and biscuits", "2024-02-09", "medium", "completed")
 
 const workOut = new Task ("Sit ups", "Do 10 sit-ups and 10 push ups", "2023-02-01", "high", "pending");
 
@@ -45,6 +45,17 @@ function handleNewTaskButton() {
     newTaskButton.disabled = isProjectArrayEmpty() ? true : false;
 }
 
+function sortTasksByDeadline(array) {
+    array.forEach(element => {
+        element.tasks.sort((a, b) => {
+            console.log("sort!");
+            console.log(b.deadline)
+            console.log(a.deadline)
+            return b.deadline - a.deadline;
+        });
+    });
+}
+
 
 function callHelperFunctions() {
     renderProjects();
@@ -56,6 +67,7 @@ function callHelperFunctions() {
     handleNewTaskButton();
 
     handleProjectClicksAfterCrud()
+    sortTasksByDeadline(projectsArray);
 }
 
 function renderProjects() {
@@ -126,7 +138,6 @@ function renderTasks(projectObject) {
     });
 }
 
-renderTasks(project2);
 
 function handleProjectClicks(event, callback) {
     tasksContainer.textContent = "";
@@ -157,6 +168,7 @@ handleProjectClicksAfterCrud()
 
 
 window.addEventListener("load", () => {
+    renderTasks(project2);
     editTasks();
 });
 
@@ -657,4 +669,6 @@ function setupEventListenersForDeleteProjects() {
 setupEventListenersForDeleteProjects()
 
 deleteProjects()
+
+sortTasksByDeadline(projectsArray);
 
