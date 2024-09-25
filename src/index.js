@@ -48,9 +48,6 @@ function handleNewTaskButton() {
 function sortTasksByDeadline(array) {
     array.forEach(element => {
         element.tasks.sort((a, b) => {
-            console.log("sort!");
-            console.log(b.deadline)
-            console.log(a.deadline)
             return b.deadline - a.deadline;
         });
     });
@@ -107,6 +104,8 @@ function renderTasks(projectObject) {
         console.log("No tasks to see here. Start by adding a new task!")
     }
 
+    sortTasksByDeadline(projectsArray);
+    
     projectObject.tasks.forEach((task, taskIndex) => {
 
         const editButton = document.createElement("button");
