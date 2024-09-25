@@ -1,12 +1,13 @@
 
 
 import { projectsArray } from "../projects-module/project.module";
+import { format } from "date-fns";
 
 export class Task {
     constructor (title, description, deadline, priority, status) {
         this.title = title;
         this.description = description;
-        this.deadline = new Date(deadline);
+        this.deadline = format(new Date(deadline), 'MMMM dd, yyyy');
         this.priority = priority;
         this.status = status;
     }
@@ -32,7 +33,7 @@ export class Task {
     }
 
     updateDeadline (newDeadline) {
-        this.deadline = new Date(newDeadline);
+        this.deadline = format(new Date(newDeadline), 'MMMM dd, yyyy');
     }
 
     updatePriority (newPriority) {
