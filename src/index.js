@@ -56,16 +56,20 @@ function sortTasksByDeadline(array) {
 
 function callHelperFunctions() {
     renderProjects();
+    console.log("Attaching edit project listeners...");
     editTasks();
+    console.log("Attaching delete project listeners...");
     deleteTasks();
     editProjects();
-    deleteProjects();
+    // deleteProjects();
     clearTasksContainer();
     handleNewTaskButton();
 
     handleProjectClicksAfterCrud()
     sortTasksByDeadline(projectsArray);
 }
+
+// callHelperFunctions()
 
 function renderProjects() {
         projectsContainer.textContent = ""
@@ -135,6 +139,9 @@ function renderTasks(projectObject) {
 
         tasksContainer.append(editButton, deleteButton, taskElement);
     });
+
+    console.log("Tasks rendered and delete buttons created."); 
+    // deleteTasks();
 }
 
 
@@ -169,6 +176,7 @@ handleProjectClicksAfterCrud()
 window.addEventListener("load", () => {
     renderTasks(project2);
     editTasks();
+    deleteTasks();
 });
 
 //for the tasks dialog
@@ -405,8 +413,11 @@ function deleteTasks() {
     const dialogTitle = document.querySelector(".delete-dialog-title");
     const deleteTasksButtons = document.querySelectorAll(".delete-task-button");
 
+    console.log("Number of delete buttons on initial load:", deleteTasksButtons.length);
+
     deleteTasksConfirmButton.value = "userWantsToDelete";
     console.log(deleteTasksButtons);
+    console.log("I am here");
 
     deleteTasksButtons.forEach(button => {
         button.addEventListener("click", (event) => {
@@ -463,8 +474,10 @@ function setupEventListenersForDeleteTasks() {
     });
 }
 
-setupEventListenersForDeleteTasks();
 deleteTasks();
+setupEventListenersForDeleteTasks();
+
+
 
 
 //Projects
