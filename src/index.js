@@ -48,7 +48,7 @@ function handleNewTaskButton() {
 function sortTasksByDeadline(array) {
     array.forEach(element => {
         element.tasks.sort((a, b) => {
-            return b.deadline - a.deadline;
+            return new Date(b.deadline) - new Date (a.deadline);
         });
     });
 }
@@ -67,6 +67,8 @@ function callHelperFunctions() {
 
     handleProjectClicksAfterCrud()
     sortTasksByDeadline(projectsArray);
+
+    console.log(projectsArray)
 }
 
 // callHelperFunctions()
@@ -140,8 +142,6 @@ function renderTasks(projectObject) {
         tasksContainer.append(editButton, deleteButton, taskElement);
     });
 
-    console.log("Tasks rendered and delete buttons created."); 
-    // deleteTasks();
 }
 
 
@@ -292,7 +292,8 @@ function setupEventListenersForEditTasks () {
                 renderTasks(projectsArray[oldProjectIndex])
             }
             
-            callHelperFunctions()
+            callHelperFunctions();
+            
         }
 
         editTasksConfirmButton.removeAttribute("data-new-project");
@@ -683,4 +684,6 @@ setupEventListenersForDeleteProjects()
 deleteProjects()
 
 sortTasksByDeadline(projectsArray);
+
+console.log(projectsArray);
 
