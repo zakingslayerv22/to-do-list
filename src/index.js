@@ -75,6 +75,7 @@ function callHelperFunctions() {
     deleteTasks();
     editProjects();
     deleteProjects();
+    updateLocalStorage()
     clearTasksContainer();
     handleNewTaskButton();
 
