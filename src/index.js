@@ -62,7 +62,22 @@ function updateLocalStorage() {
  function fetchLocalStorageArrayOrDefault() {
     const localStorageProjectsArray = JSON.parse(localStorage.getItem("projectsArray") || "[]");
 
-    let finalProjectsArray = !localStorageProjectsArray.length ? initialProjectsArray : localStorageProjectsArray;
+    let finalProjectsArray = !localStorageProjectsArray.length 
+                            ? initialProjectsArray 
+                            : localStorageProjectsArray.map(projectElement => new Project (
+                                //Convert each project to a project instance
+                                projectElement.title,
+                                projectElement.color, 
+                                // Convert each task to a Task instance
+                                projectElement.tasks.map(taskElement => new Task (
+                                    taskElement.title, 
+                                    taskElement.description,
+                                    taskElement.deadline,
+                                    taskElement.priority,
+                                    taskElement.status
+                                  )
+                                )
+                            ));
 
     return finalProjectsArray;
  }
@@ -75,7 +90,7 @@ function callHelperFunctions() {
     deleteTasks();
     editProjects();
     deleteProjects();
-    updateLocalStorage()
+    updateLocalStorage();
     clearTasksContainer();
     handleNewTaskButton();
 
