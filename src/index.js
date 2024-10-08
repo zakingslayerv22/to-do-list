@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { projectsArray, Project } from "./projects-module/project.module";
+import { projectsArray as initialProjectsArray, Project } from "./projects-module/project.module";
 import { Task } from "./tasks-module/tasks.module";
 
 
@@ -14,17 +14,19 @@ const workOut = new Task ("Sit ups", "Do 10 sit-ups and 10 push ups", "2023-02-0
 
 
 project2.add();
-readBook.add(projectsArray[0]);
-learnBaking.add(projectsArray[0]);
-workOut.add(projectsArray[1])
+readBook.add(initialProjectsArray[0]);
+learnBaking.add(initialProjectsArray[0]);
+workOut.add(initialProjectsArray[1])
 
-readBook.updateProject(projectsArray[0], projectsArray[1])
+readBook.updateProject(initialProjectsArray[0], initialProjectsArray[1])
 
 // readBook.delete(projectsArray[0])
 
 const projectsContainer = document.querySelector(".projects-container");
 const tasksContainer = document.querySelector(".tasks-container");
 const newTaskButton = document.querySelector("#new-task-button");
+
+const projectsArray = fetchLocalStorageArrayOrDefault();
 
 function isProjectArrayEmpty() {
     return projectsArray.length === 0;
@@ -48,30 +50,37 @@ function handleNewTaskButton() {
 function sortTasksByDeadline(array) {
     array.forEach(element => {
         element.tasks.sort((a, b) => {
-            return new Date(b.deadline) - new Date (a.deadline);
+            return new Date(b.deadline) - new Date(a.deadline);
         });
     });
 }
 
+function updateLocalStorage() {
+    localStorage.setItem('projectsArray', JSON.stringify(initialProjectsArray));
+ } 
+
+ function fetchLocalStorageArrayOrDefault() {
+    const localStorageProjectsArray = JSON.parse(localStorage.getItem("projectsArray") || "[]");
+
+    let finalProjectsArray = !localStorageProjectsArray.length ? initialProjectsArray : localStorageProjectsArray;
+
+    return finalProjectsArray;
+ }
+
+
 
 function callHelperFunctions() {
     renderProjects();
-    console.log("Attaching edit project listeners...");
     editTasks();
-    console.log("Attaching delete project listeners...");
     deleteTasks();
     editProjects();
-    // deleteProjects();
+    deleteProjects();
     clearTasksContainer();
     handleNewTaskButton();
 
     handleProjectClicksAfterCrud()
     sortTasksByDeadline(projectsArray);
-
-    console.log(projectsArray)
 }
-
-// callHelperFunctions()
 
 function renderProjects() {
         projectsContainer.textContent = ""
@@ -414,11 +423,9 @@ function deleteTasks() {
     const dialogTitle = document.querySelector(".delete-dialog-title");
     const deleteTasksButtons = document.querySelectorAll(".delete-task-button");
 
-    console.log("Number of delete buttons on initial load:", deleteTasksButtons.length);
 
     deleteTasksConfirmButton.value = "userWantsToDelete";
-    console.log(deleteTasksButtons);
-    console.log("I am here");
+
 
     deleteTasksButtons.forEach(button => {
         button.addEventListener("click", (event) => {
@@ -684,6 +691,4 @@ setupEventListenersForDeleteProjects()
 deleteProjects()
 
 sortTasksByDeadline(projectsArray);
-
-console.log(projectsArray);
 
