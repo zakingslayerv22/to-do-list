@@ -616,7 +616,7 @@ function setupEventListenersForNewProjects() {
             );
 
             projectsArray.unshift(newProject);
-    
+            updateLocalStorage();
             renderTasks(projectsArray[0]);
             // renderTasks(projectsArray[projectsArray.indexOf(newProject)]);
             callHelperFunctions()
@@ -686,6 +686,7 @@ function setupEventListenersForDeleteProjects() {
 
             projectObject.delete();
 
+            updateLocalStorage()
             callHelperFunctions();
         }
 
