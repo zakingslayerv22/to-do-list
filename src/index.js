@@ -82,6 +82,21 @@ function updateLocalStorage() {
     return finalProjectsArray;
  }
 
+function checkInputValidity(...inputFields) {
+    let isValid = true;
+
+    inputFields.forEach(input => {
+        if (input.value.trim() === "") {
+            input.setCustomValidity("This field is required.");
+            input.reportValidity(); 
+            isValid = false;
+        } else {
+            input.setCustomValidity("");
+        }
+    });
+
+    return isValid;
+}
 
 
 function callHelperFunctions() {
@@ -199,7 +214,7 @@ handleProjectClicksAfterCrud()
 
 
 window.addEventListener("load", () => {
-    renderTasks(project2);
+    //renderTasks(project2);
     editTasks();
     deleteTasks();
 });
@@ -326,8 +341,13 @@ function setupEventListenersForEditTasks () {
     });
 
     editTasksConfirmButton.addEventListener("click", (event) => {
-        event.preventDefault;
-        tasksDialog.close(editTasksConfirmButton.value);
+        event.preventDefault();
+        if (!checkInputValidity(titleField, descriptionField, deadlineField, priorityField, statusField, projectsField)) {
+            console.log("All fields are required!");
+        } else {
+            tasksDialog.close(editTasksConfirmButton.value);
+        }
+            
     });
 
     editTasksCancelButton.addEventListener(("click"), () => {
@@ -637,7 +657,7 @@ function setupEventListenersForNewProjects() {
     });
 } 
 
-setupEventListenersForNewProjects()
+setupEventListenersForNewProjects();
 
 newProjectButton.addEventListener("click", handleCreateProjects);
 
