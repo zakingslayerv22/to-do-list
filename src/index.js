@@ -82,11 +82,13 @@ function updateLocalStorage() {
     return finalProjectsArray;
  }
 
-function checkInputValidity(...inputFields) {
+function checkInputValidity(specialSelectField, ...inputFields) {
     let isValid = true;
 
+    const selectedOption = specialSelectField.querySelector('option:checked')
+
     inputFields.forEach(input => {
-        if (input.value.trim() === "") {
+        if (input.value.trim() === "" || selectedOption.disabled) {
             input.setCustomValidity("This field is required.");
             input.reportValidity(); 
             isValid = false;
@@ -241,15 +243,15 @@ const editTasksCancelButton = document.querySelector("#cancelBtn");
 function createSelectOptions() {
     projectsField.textContent = "";
 
-    // const defaultOption = document.createElement('option');
-    // //    let selectOption = ""; 
+    const defaultOption = document.createElement('option');
+    //    let selectOption = ""; 
     
-    //    defaultOption.textContent = "Select project";
-    //    defaultOption.selected = true;
-    //    defaultOption.disabled = true;
-    //    defaultOption.hidden = true;
+       defaultOption.textContent = "Select project";
+       defaultOption.selected = true;
+       defaultOption.disabled = true;
+       defaultOption.hidden = true;
     
-    //    projectsField.appendChild(defaultOption);
+       projectsField.appendChild(defaultOption);
 
         let selectOption = "";
 
@@ -343,7 +345,7 @@ function setupEventListenersForEditTasks () {
 
     editTasksConfirmButton.addEventListener("click", (event) => {
         event.preventDefault();
-        if (!checkInputValidity(titleField, descriptionField, deadlineField, priorityField, statusField, projectsField)) {
+        if (!checkInputValidity(projectsField, titleField, descriptionField, deadlineField, priorityField, statusField)) {
             console.log("All fields are required!");
         } else {
             tasksDialog.close(editTasksConfirmButton.value);
@@ -432,7 +434,7 @@ function setupEventListenersForNewTasks() {
 
     newTasksConfirmButton.addEventListener("click", (event) => {
         event.preventDefault();
-        if (!checkInputValidity(titleField, descriptionField, deadlineField, priorityField, statusField)) {
+        if (!checkInputValidity(projectsField, titleField, descriptionField, deadlineField, priorityField, statusField)) {
             console.log("All fields are required!");
         } else {
             tasksDialog.close(newTasksConfirmButton.value);
@@ -589,7 +591,11 @@ function setupEventListenersForEditProjects () {
 
     editProjectsConfirmButton.addEventListener("click", (event) => {
         event.preventDefault;
-        projectsDialog.close(editProjectsConfirmButton.value);
+        if (!checkInputValidity(projectColorField, projectTitleField)) {
+            console.log("All fields are required!");
+        } else {
+            projectsDialog.close(editProjectsConfirmButton.value);
+        }
         console.log(projectsArray);
     });
 
@@ -652,7 +658,12 @@ function setupEventListenersForNewProjects() {
 
     newProjectsConfirmButton.addEventListener("click", (event) => {
         event.preventDefault();
-        projectsDialog.close(newProjectsConfirmButton.value);
+
+        if (!checkInputValidity(projectColorField, projectTitleField)) {
+            console.log("All fields are required!");
+        } else {
+            projectsDialog.close(newProjectsConfirmButton.value);
+        }
     });
     
     
