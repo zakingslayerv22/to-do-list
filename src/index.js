@@ -56,7 +56,7 @@ function sortTasksByDeadline(array) {
 }
 
 function updateLocalStorage() {
-    localStorage.setItem('projectsArray', JSON.stringify(initialProjectsArray));
+    localStorage.setItem('projectsArray', JSON.stringify(projectsArray));
  } 
 
  function fetchLocalStorageArrayOrDefault() {
@@ -633,7 +633,7 @@ function handleCreateProjects() {
    defaultOption.disabled = true;
    defaultOption.hidden = true;
 
-   projectColorField.appendChild(defaultOption);
+   projectColorField.appendChild(defaultOption)
 
 }
 
@@ -647,7 +647,6 @@ function setupEventListenersForNewProjects() {
             );
 
             projectsArray.unshift(newProject);
-            updateLocalStorage();
             renderTasks(projectsArray[0]);
             // renderTasks(projectsArray[projectsArray.indexOf(newProject)]);
             callHelperFunctions()
@@ -722,7 +721,7 @@ function setupEventListenersForDeleteProjects() {
 
             projectObject.delete();
 
-            updateLocalStorage()
+            // updateLocalStorage()
             callHelperFunctions();
         }
 
