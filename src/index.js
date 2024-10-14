@@ -241,15 +241,15 @@ const editTasksCancelButton = document.querySelector("#cancelBtn");
 function createSelectOptions() {
     projectsField.textContent = "";
 
-    const defaultOption = document.createElement('option');
-    //    let selectOption = ""; 
+    // const defaultOption = document.createElement('option');
+    // //    let selectOption = ""; 
     
-       defaultOption.textContent = "Select project";
-       defaultOption.selected = true;
-       defaultOption.disabled = true;
-       defaultOption.hidden = true;
+    //    defaultOption.textContent = "Select project";
+    //    defaultOption.selected = true;
+    //    defaultOption.disabled = true;
+    //    defaultOption.hidden = true;
     
-       projectsField.appendChild(defaultOption);
+    //    projectsField.appendChild(defaultOption);
 
         let selectOption = "";
 
@@ -332,6 +332,7 @@ function setupEventListenersForEditTasks () {
                 renderTasks(projectsArray[oldProjectIndex])
             }
             
+            // updateLocalStorage();
             callHelperFunctions();
             
         }
@@ -431,7 +432,11 @@ function setupEventListenersForNewTasks() {
 
     newTasksConfirmButton.addEventListener("click", (event) => {
         event.preventDefault();
-        tasksDialog.close(newTasksConfirmButton.value);
+        if (!checkInputValidity(titleField, descriptionField, deadlineField, priorityField, statusField)) {
+            console.log("All fields are required!");
+        } else {
+            tasksDialog.close(newTasksConfirmButton.value);
+        }
     });
     
     
