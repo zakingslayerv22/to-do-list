@@ -216,7 +216,7 @@ handleProjectClicksAfterCrud()
 
 
 window.addEventListener("load", () => {
-    //renderTasks(project2);
+    renderTasks(projectsArray[0]);
     editTasks();
     deleteTasks();
 });
